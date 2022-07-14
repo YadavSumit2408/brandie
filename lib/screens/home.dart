@@ -9,146 +9,54 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  // List<dynamic>characters=[];
-  // bool _loading=false;
-  // void initState(){
-  //   dataClass();
-  // }
+  List<dynamic>characters=[];
+  bool _loading=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body:Column(
-         children:  [
-            SizedBox(
-             height: 10,
-           ),
-           const Text("Brands",
-           textAlign: TextAlign.center,
-           style:TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.black,)
-           ),
-           const SizedBox(
-             height: 40,
-           ),
-           Row(
-             children: [
-               const SizedBox(
-                 width: 20,
-               ),
-                Container(
-                    height:150,
-                    width:105,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    alignment: Alignment.center,
-                    child:const Text("Display Brands Here",
-                        textAlign: TextAlign.center,
-                        style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-                 ),
-               const SizedBox(
-                 width: 5,
-               ),
-               Container(
-                   height:150,
-                   width:105,
-                   decoration: BoxDecoration(
-                     color: Colors.black,
-                     borderRadius: BorderRadius.circular(15.0),
-                   ),
-                   alignment: Alignment.center,
-                   child:const Text("Display Brands Here",
-                       textAlign: TextAlign.center,
-                       style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-               ),
-               const SizedBox(
-                 width: 5,
-               ),
-               Container(
-                   height:150,
-                   width:105,
-                   decoration: BoxDecoration(
-                     color: Colors.black,
-                     borderRadius: BorderRadius.circular(15.0),
-                   ),
-                   alignment: Alignment.center,
-                   child:const Text("Display Brands Here",
-                       textAlign: TextAlign.center,
-                       style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-               ),
-               const SizedBox(
-                 width: 5,
-               ),
-             ],
-           ),
-           const SizedBox(
-             height:40,
-           ),
-           const Text("Rewards",
-               textAlign: TextAlign.left,
-               style:TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.black)
-           ),
-           const SizedBox(
-             height:40,
-           ),
-           Row(
-             children: [
-               const SizedBox(
-                 width: 20,
-               ),
-               Container(
-                   height:150,
-                   width:105,
-                   decoration: BoxDecoration(
-                     color: Colors.black,
-                     borderRadius: BorderRadius.circular(15.0),
-                   ),
-                   alignment: Alignment.center,
-                   child:const Text("Display Rewards Here",
-                       textAlign: TextAlign.center,
-                       style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-               ),
-               const SizedBox(
-                 width: 5,
-               ),
-               Container(
-                   height:150,
-                   width:105,
-                   decoration: BoxDecoration(
-                     color: Colors.black,
-                     borderRadius: BorderRadius.circular(15.0),
-                   ),
-                   alignment: Alignment.center,
-                   child:const Text("Display Rewards Here",
-                       textAlign: TextAlign.center,
-                       style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-               ),
-               const SizedBox(
-                 width: 5,
-               ),
-               Container(
-                   height:150,
-                   width:105,
-                   decoration: BoxDecoration(
-                     color: Colors.black,
-                     borderRadius: BorderRadius.circular(15.0),
-                   ),
-                   alignment: Alignment.center,
-                   child:const Text("Display Rewards Here",
-                       textAlign: TextAlign.center,
-                       style:TextStyle(color:Colors.white,fontSize: 10,fontWeight: FontWeight.bold))
-               ),
-               const SizedBox(
-                 width: 5,
-               ),
-             ],
-           ),
-           const SizedBox(
-             height:20,
-           ),
-         ],
+       body:_loading
+           ?const CircularProgressIndicator()
+           :characters.isEmpty
+           ?Center(
+         child:ElevatedButton(
+           child: const Text("Call API Data")
+         )
        )
+
     );
+
+  }
+
+  void apiData()async {
+
+    GraphQLClient client = GraphQLClient(link: link,
+        cache: GraphQLCache(
+      store:HiveStore(),
+    ));
+
+    HttpLink link = HttpLink("https://rickandmortyapi.com/graphql");
+
+    QueryResult queryResult =await client.query(
+      QueryOptions(
+          document:gql(
+        """query{
+        characters(page:2,  filter:{ name: "rick"}){
+        results{
+        id
+        name
+        image
+        }
+        }
+        }""",
+       )
+    )
+    );
+    setState(){
+      characters = queryResult.data!["characters"]["results"];
+    }
+
   }
   }
+
+
 
