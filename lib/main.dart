@@ -9,9 +9,7 @@ void main() async {
   await initHiveForFlutter();
   runApp(const MyApp());
 }
-void initState(){
 
-}
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
