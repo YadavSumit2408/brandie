@@ -1,12 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-
 import '../constants/constants.dart';
 import '../services/services.dart';
-import '../blocs/blocs.dart';
 import 'model.dart';
-
-
-
 
 class Repository{
   GraphQLClient _client = clientToQuery();
@@ -16,9 +11,7 @@ class Repository{
     QueryResult result = await _client.query(
         QueryOptions(
             document: gql(charactersGraphQL)
-        )
-    );
-
+        ));
     if(!result.hasException)
     {
       List data = result.data!['characters']["results"];
@@ -36,7 +29,5 @@ class Repository{
       return characters;
     }
     return Future.error(error);
-
   }
-
 }

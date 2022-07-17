@@ -63,11 +63,13 @@ class _HomeState extends State<Home>{
           return const Center(child:Text("Something Went Wrong"),);
         },
       ),
+
       bottomNavigationBar: SizedBox(
           height:54,
           child:BottomNavigationBar(items: _bottomNavigationBarItems,
             backgroundColor: Colors.green,
-            type: BottomNavigationBarType.fixed,)),
+            type: BottomNavigationBarType.fixed,)
+      ),
     );
   }
 }

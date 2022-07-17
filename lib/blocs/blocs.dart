@@ -4,8 +4,6 @@ import 'package:brandie/blocs/repository.dart';
 import 'blocs_event.dart';
 import 'blocs_state.dart';
 
-
-
 class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   Repository repository;
   CharactersBloc({required this.repository});
