@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:brandie/screens/home1.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +28,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 
 

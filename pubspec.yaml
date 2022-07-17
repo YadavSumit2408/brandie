@@ -48,6 +48,8 @@ dev_dependencies:
   graphql_flutter:
   http:
   flutter_bloc: ^4.0.1
+  font_awesome_flutter: ^8.10.0
+  google_fonts: ^1.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

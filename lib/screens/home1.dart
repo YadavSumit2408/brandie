@@ -39,7 +39,7 @@ class _HomeState extends State<Home>{
                           state.characters[index].image,
                         )
                     ),
-                    title: Text(state.characters[index].name,style: TextStyle(fontWeight: FontWeight.bold),),
+                    title: Text(state.characters[index].name,style: const TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Text(state.characters[index].id),
                       trailing: SizedBox(
                           width: 80,
